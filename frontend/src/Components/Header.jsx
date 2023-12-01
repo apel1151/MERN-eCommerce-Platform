@@ -14,7 +14,7 @@ const Header = () => {
           <Link to="/account">
             <li>My Account</li>
           </Link>
-          <Link to="/login">
+          <Link to="/signup">
             <li>Post your Add</li>
           </Link>
         </ul>
@@ -26,7 +26,7 @@ const Header = () => {
           placeholder="Search..."
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
         />
-        <button className="m-4 border w-24 h-9 border-blue-500 rounded-md p-1 focus:border-blue-300 focus:ring bg-blue-400 text-white">
+        <button className="m-4 border w-24 h-9 border-blue-500 rounded-md p-1 focus:border-blue-300 focus:ring bg-blue-400 text-white hover:bg-blue-500">
           Search
         </button>
       </div>
