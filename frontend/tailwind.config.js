@@ -7,6 +7,9 @@ module.exports = {
         inter: ['Inter', 'sans-serif'], 
         montserrat: ['Montserrat', 'sans-serif'], 
       },
+      height: {
+        vertical: "700px"
+      }
     },
   },
   plugins: [],
