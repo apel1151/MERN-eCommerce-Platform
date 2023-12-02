@@ -1,14 +1,20 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import AuthRoute from "./routes/AuthRoute.js";
+import UserRoute from "./routes/UserRoute.js";
 dotenv.config();
 
-// creating server
+
 const app = express();
 
-// connecting to the database
+// middleware for sending json data to our server
+app.use(express.json());
+// all API connection
+app.use("/api/user", UserRoute);
+app.use("/api/auth", AuthRoute)
 
-// MongoDB connection
+// MongoDB connection // creating server
 mongoose
   .connect(process.env.URI, {
     useNewUrlParser: true,
