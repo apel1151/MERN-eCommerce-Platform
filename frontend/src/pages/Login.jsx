@@ -9,13 +9,13 @@ const Login = () => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
-    /********************form data updating ****************************/
-    const handleChange = (e) => {
-      setFormData({ ...formData, [e.target.id]: e.target.value });
-    };
 
-    /********************form data handling ****************************/
+  /********************form data updating ****************************/
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  /********************form data handling ****************************/
   const handleSubmit = async (e) => {
     e.preventDefault();
     const user = formData;
@@ -29,8 +29,8 @@ const Login = () => {
       });
 
       const data = await res.json();
-      dispatch(signInSuccess(data));
       if (res.ok) {
+        dispatch(signInSuccess(data));
         setSuccess("User login succeesfully");
         setError(false);
         navigate("/");
@@ -41,7 +41,6 @@ const Login = () => {
     } catch (error) {
       setError(error.message);
       setSuccess(false);
-
     }
   };
   return (
@@ -52,14 +51,14 @@ const Login = () => {
           type="email"
           placeholder="Email"
           id="email"
-          className="bg-cyan-100 p-2 rounded-lg" 
+          className="bg-cyan-100 p-2 rounded-lg"
           onChange={handleChange}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-cyan-100 p-2 rounded-lg" 
+          className="bg-cyan-100 p-2 rounded-lg"
           onChange={handleChange}
         />
         <button className="bg-slate-700 text-white p-2 rounded-lg uppercase hover:opacity-95">
