@@ -3,6 +3,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
+import PrivateRoute from "./Components/Private";
 import Account from "./pages/Account";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -16,7 +17,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/account" element={<Account/>} />
+        <Route element={<PrivateRoute/>}>
+              <Route path="/account" element={<Account/>}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );
