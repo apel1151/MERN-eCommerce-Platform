@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { signInSuccess } from "../redux/user/userSlice";
 
 const Login = () => {
   const [formData, setFormData] = useState({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  
     /********************form data updating ****************************/
     const handleChange = (e) => {
       setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -25,6 +29,7 @@ const Login = () => {
       });
 
       const data = await res.json();
+      dispatch(signInSuccess(data));
       if (res.ok) {
         setSuccess("User login succeesfully");
         setError(false);
@@ -40,24 +45,24 @@ const Login = () => {
     }
   };
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-sm mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Login</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <input
           type="email"
           placeholder="Email"
           id="email"
-          className="bg-cyan-100 p-3 rounded-lg" 
+          className="bg-cyan-100 p-2 rounded-lg" 
           onChange={handleChange}
         />
         <input
           type="password"
           placeholder="Password"
           id="password"
-          className="bg-cyan-100 p-3 rounded-lg" 
+          className="bg-cyan-100 p-2 rounded-lg" 
           onChange={handleChange}
         />
-        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95">
+        <button className="bg-slate-700 text-white p-2 rounded-lg uppercase hover:opacity-95">
           Login
         </button>
       </form>

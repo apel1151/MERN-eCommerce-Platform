@@ -5,7 +5,7 @@ import Category from "../Components/Category";
 import categoryItem from "../asset/catergory";
 
 const Home = () => {
-  console.log("categoryItem:", categoryItem);
+  
   return (
     <>
       {/*//////////////////// Category Sections ////////////////////////*/}
