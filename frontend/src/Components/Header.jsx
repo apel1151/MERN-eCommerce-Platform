@@ -1,33 +1,80 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { FaUser } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { SetLoader } from "../redux/loader/loadersSlice";
+
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleBrand = async (e) => {
+    e.preventDefault();
+    dispatch(SetLoader(true))
+    await new Promise((resolve) => setTimeout( resolve, 500));
+    navigate("/");
+    dispatch(SetLoader(false));
+  }
+
+  const handleAccount = async (e) => {
+    e.preventDefault();
+    dispatch(SetLoader(true));
+
+    if (currentUser) {
+      // Simulate an API call with a delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate("/account");
+    } else {
+      // Simulate an API call with a delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      navigate("/login");
+    }
+
+    dispatch(SetLoader(false));
+  };
+
+  const handleAdd = async (e) => {
+    e.preventDefault();
+    dispatch(SetLoader(true));
+
+    // Simulate an API call with a delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    navigate("/bids&products");
+
+    dispatch(SetLoader(false));
+  };
+
   return (
     <div className="bg-cyan-200">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-2">
         <div className="flex">
           <img
-            src="https://banner2.cleanpng.com/20180419/sfq/kisspng-retail-computer-icons-e-commerce-sales-mega-offer-5ad81eeaa23fc8.2308391515241131306646.jpg"
+            src="https://logo.com/image-cdn/images/kts928pd/production/396f6f3c7f506eb9674c2a6e244249faeda83b00-424x419.png?w=1080&q=72"
             alt="logo"
             className=" h-16 w-15 rounded-full"
           />
-          <Link to="/">
-            <h1 className="font-bold text-2xl mt-5 ml-5">MERN Bikroy</h1>
-          </Link>
+          
+            <h1 onClick={handleBrand} className="font-bold text-2xl mt-5 ml-5 text-green-600 cursor-pointer">MERN Bikroy</h1>
+        
         </div>
         <ul className="flex gap-12">
-          <Link to="/account">
-            <li>
-              My Account{" "}
+          <li>
+            <button
+              onClick={handleAccount}
+              className="text-green-700 flex items-center gap-3 hover:underline"
+            >
+              <FaUser />
               {currentUser && (
-                <span className="font-semibold text-red-700">{currentUser.username}</span>
+                <span className="text-green-700 text-xl align-self-start font-bold">
+                  {currentUser.username}
+                </span>
               )}
-            </li>
-          </Link>
-          <Link to="/signup">
-            <li>Post your Add</li>
-          </Link>
+            </button>
+          </li>
+          <li>
+            <button onClick={handleAdd} className=" text-yellow-600 hover:underline">Post your Add</button>
+          </li>
         </ul>
       </div>
 

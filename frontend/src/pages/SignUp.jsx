@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { SetLoader } from "../redux/loader/loadersSlice";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({});
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   /********************form data updating ****************************/
@@ -17,6 +20,7 @@ const SignUp = () => {
     e.preventDefault();
     const user = formData;
     try {
+      dispatch(SetLoader(true))
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         body: JSON.stringify(user),
@@ -24,7 +28,7 @@ const SignUp = () => {
           "Content-Type": "application/json",
         },
       });
-
+      dispatch(SetLoader(false))
       const data = await res.json();
       if (res.ok) {
         setSuccess("User has created succeesfully");
@@ -35,6 +39,7 @@ const SignUp = () => {
         throw new Error(data.error || "Signup failed");
       }
     } catch (error) {
+      dispatch(SetLoader(false))
       setError(error.message);
       setSuccess(false);
     }

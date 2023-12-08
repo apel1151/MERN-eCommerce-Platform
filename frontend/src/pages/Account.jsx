@@ -3,6 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { CiBag1, CiSettings } from "react-icons/ci";
 import { IoIosLogOut } from "react-icons/io";
 import Add from "../Components/Add";
+import Bid from "../Components/Bid";
 import Profile from "../Components/Profile";
 import Setting from "../Components/Setting";
 
@@ -10,26 +11,40 @@ const Account = () => {
   const [activeButton, setActiveButton] = useState("profile");
   const [profile, setProfile] = useState(true);
   const [add, setAdd] = useState(false);
+  const [bid, setBid] = useState(false);
   const [setting, setSetting] = useState(false);
+
 
   const handleProfile = (profile) => {
     setActiveButton(profile);
     setProfile(true);
     setAdd(false);
+    setBid(false);
     setSetting(false);
   };
 
   const handleAdd = (add) => {
     setActiveButton(add);
     setAdd(true);
+    setBid(false)
     setProfile(false);
     setSetting(false);
   };
+
+  const handleBid = (bid) => {
+    setActiveButton(bid);
+    setBid(true);
+    setProfile(false);
+    setAdd(false);
+    setSetting(false)
+    
+  }
 
   const handleSetting = (setting) => {
     setActiveButton(setting);
     setProfile(false);
     setAdd(false);
+    setBid(false);
     setSetting(true);
   };
 
@@ -67,6 +82,16 @@ const Account = () => {
           </li>
           <li
             className={`flex gap-3 p-3 rounded-md w-52 ${
+              activeButton === "bid" && bid ? "bg-cyan-300 text-gray" : ""
+            }`}
+          >
+            <span>
+              <CiBag1 className="text-2xl" />
+            </span>{" "}
+            <button onClick={() => handleBid("bid")}>My Bid</button>
+          </li>
+          <li
+            className={`flex gap-3 p-3 rounded-md w-52 ${
               activeButton === "settings" && setting
                 ? "bg-cyan-300 text-gray"
                 : ""
@@ -91,6 +116,7 @@ const Account = () => {
         <hr className="border border-t-2 h-vertical border-cyan-400"/>
         {profile && <Profile />}
         {add && <Add />}
+        {bid && <Bid/>}
         {setting && <Setting />}
       </div>
     </div>

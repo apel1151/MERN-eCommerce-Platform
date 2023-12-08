@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { SetLoader } from "../redux/loader/loadersSlice";
 import { signInSuccess } from "../redux/user/userSlice";
 
 const Login = () => {
@@ -20,6 +21,7 @@ const Login = () => {
     e.preventDefault();
     const user = formData;
     try {
+      dispatch(SetLoader(true))
       const res = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(user),
@@ -27,7 +29,7 @@ const Login = () => {
           "Content-Type": "application/json",
         },
       });
-
+      dispatch(SetLoader(false))
       const data = await res.json();
       if (res.ok) {
         dispatch(signInSuccess(data));
@@ -39,6 +41,7 @@ const Login = () => {
         throw new Error(data.error || "Signup failed");
       }
     } catch (error) {
+      dispatch(SetLoader(false))
       setError(error.message);
       setSuccess(false);
     }
